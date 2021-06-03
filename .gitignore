@@ -1,0 +1,8 @@
+node_modules/
+build/
+
+# Sqlite3 test-databases
+*.db
+
+# Personal notes for thesis
+node_info.txt
