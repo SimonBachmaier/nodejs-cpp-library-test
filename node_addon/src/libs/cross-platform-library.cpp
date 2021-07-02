@@ -4,6 +4,10 @@ std::string cpl::HelloMessage(std::string from) {
     return "Hello from C++ and " + from;
 }
 
+int cpl::AddOne(int x) {
+    return x + 1;
+}
+
 bool cpl::Database::CreateConnection(std::string db_path, std::string* err) {
     if (connected_ == true) {
         if (db_path == db_path)
@@ -30,57 +34,6 @@ bool cpl::Database::CreateConnection(std::string db_path, std::string* err) {
     }
     return connected_;
 }
-
-// std::string cpl::Database::TestConnection() {
-//     if (connected_) {
-//         char *err = nullptr;
-
-//         sqlite3_exec(
-//             connection_,
-//             "CREATE TABLE IF NOT EXISTS TESTTABLE (" \
-//             "ID INTEGER PRIMARY KEY AUTOINCREMENT," \
-//             "NAME TEXT NOT NULL" \
-//             ");",
-//             nullptr,
-//             nullptr,
-//             &err
-//         );
-//         if ((err != NULL)) 
-//             return (std::string)"create table failed:" + err;
-
-//         sqlite3_exec(
-//             connection_,
-//             "INSERT INTO TESTTABLE ('NAME') VALUES ('fu');",
-//             nullptr,
-//             nullptr,
-//             &err
-//         );
-//         if ((err != NULL))
-//             return (std::string)"insert into table failed:" + err;
-
-//         std::vector<std::string> ret;
-//         sqlite3_exec(
-//             connection_,
-//             "SELECT * FROM TESTTABLE;",
-//             [] (void* ctx, int argc, char **argv, char **columnName) -> int
-//             {
-//                 static_cast<std::vector<std::string>*>(ctx)->push_back(argv[1]);
-//                 return 0;
-//             },
-//             &ret,
-//             &err
-//         );
-//         if ((err != NULL))
-//             return (std::string)"select failed:" + err;
-
-//         std::string returnValue = "";
-//         for (std::string value: ret) {
-//             returnValue += value + "_";
-//         }
-//         return returnValue;
-//     }
-//     return "not connected";
-// }
 
 bool cpl::Database::CloseConnection() {
     if (connected_) {

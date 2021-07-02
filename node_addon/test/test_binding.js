@@ -4,8 +4,11 @@ const lib = require("../lib/binding.js");
 
 function testBasic()
 {
-    const result =  lib.HelloMessage("Node.js")
-    assert.strictEqual(result, "Hello from C++ and Node.js", "Unexpected value returned");
+    const helloMessage =  lib.HelloMessage("Node.js")
+    assert.strictEqual(helloMessage, "Hello from C++ and Node.js", "Unexpected value returned");
+
+    const addedOne = lib.AddOne(1);
+    assert.strictEqual(addedOne, 2, "Unexpected value returned");
 
     console.log("OpenDatabaseConnection", lib.OpenDatabaseConnection("./test/my_test.db"));
     console.log("SetupTestData", lib.SetupTestData());

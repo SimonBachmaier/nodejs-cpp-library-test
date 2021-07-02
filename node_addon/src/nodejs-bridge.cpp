@@ -15,29 +15,9 @@ Napi::Value HelloMessage(const Napi::CallbackInfo& info) {
   return Napi::String::New(env, cpl::HelloMessage(info[0].ToString()));
 }
 
-// Napi::Value SetupTestData_deprecated(const Napi::CallbackInfo& info) {
-//   Napi::Env env = info.Env();
-
-//   if (info.Length() != 1 || !info[0].IsString())
-//   {
-//     Napi::TypeError::New(env, "String expected").ThrowAsJavaScriptException();
-//     return env.Undefined();
-//   }
-
-//   std::string returnValue;
-//   std::string* err;
-//   cpl::Database& db = cpl::Database::GetInstance();
-//   if (db.CreateConnection(info[0].ToString(), err) == false)
-//     returnValue = *err;
-//   else {
-//     db.SetupTestData();
-
-//     if (db.CloseConnection() == false)
-//       returnValue += "Error closing database";
-//   }
-
-//   return Napi::String::New(env, returnValue);
-// }
+Napi::Value AddOne(const Napi::CallbackInfo& info) {
+  return Napi::Number::New(info.Env(), cpl::AddOne(info[0].ToNumber()));
+}
 
 Napi::Value OpenDatabaseConnection(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
@@ -48,7 +28,7 @@ Napi::Value OpenDatabaseConnection(const Napi::CallbackInfo& info) {
     return env.Undefined();
   }
 
-  std::string* err;
+  std::string* err = nullptr;
   cpl::Database& db = cpl::Database::GetInstance();
   if (db.CreateConnection(info[0].ToString(), err) == false)
     return Napi::String::New(env, err->c_str());
@@ -124,6 +104,8 @@ Napi::Value GetAllArticles(const Napi::CallbackInfo& info) {
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "HelloMessage"),
               Napi::Function::New(env, HelloMessage));
+  exports.Set(Napi::String::New(env, "AddOne"),
+              Napi::Function::New(env, AddOne));
   exports.Set(Napi::String::New(env, "OpenDatabaseConnection"),
               Napi::Function::New(env, OpenDatabaseConnection));
   exports.Set(Napi::String::New(env, "CloseDatabaseConnection"),

@@ -9,6 +9,7 @@
 
 namespace cpl {
     std::string HelloMessage(std::string from);
+    int AddOne(int x);
 
     class Database;
     class User;
@@ -35,7 +36,6 @@ class cpl::Database {
         bool CreateConnection(std::string db_path, std::string* err);
         bool CloseConnection();
 
-        // std::string TestConnection();
         void SetupTestData();
 
         void CreateUserTable();
