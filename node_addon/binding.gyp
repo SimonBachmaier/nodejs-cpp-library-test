@@ -1,7 +1,7 @@
 {
   'targets': [
     {
-      'target_name': 'cross-platform-library-native',
+      'target_name': 'crossPlatformLibraryNative',
       'sources': [ 
         'src/nodejs-bridge.cpp',
         'src/libs/sqlite3.c',

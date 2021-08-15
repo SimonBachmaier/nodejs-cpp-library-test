@@ -1,8 +1,6 @@
 #include <napi.h>
 #include "libs/cross-platform-library.h"
 
-using namespace Napi;
-
 Napi::Value HelloMessage(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
 
@@ -119,4 +117,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   return exports;
 }
 
-NODE_API_MODULE(addon, Init)
+NODE_API_MODULE(NODE_GYP_MODULE_NAME, Init)

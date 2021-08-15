@@ -11,15 +11,26 @@ function replaceText (selector, text) {
 }
 
 function showArticlesAndRunTest() {
-  // Run test
+  // Run function call performance test
+  const iterations = 10000000;
   let testNumber = 0;
-  const t1 = Date.now();
-  for (let i = 0; i < 10000000; i++) {
+  let t1 = Date.now();
+  for (let i = 0; i < iterations; i++) {
     testNumber = lib.AddOne(testNumber);
   }
-  const t2 = Date.now();
+  let t2 = Date.now();
+  const cppTime = t2 - t1;
 
-  replaceText('hello-message', `Test took ${(t2-t1)}ms`);
+  testNumber = 0;
+  t1 = Date.now();
+  for (let i = 0; i < iterations; i++) {
+    testNumber = AddOne(testNumber);
+  }
+  t2 = Date.now();
+  const jsTime = t2 - t1;
+
+  const timeDiff = cppTime - jsTime;
+  replaceText('hello-message', `C++ test took ${cppTime}ms. JS test took ${jsTime}ms. C++ was ${Math.abs(timeDiff)}ms ${timeDiff >= 0 ? 'slower' : 'faster'}.`);
 
   /**
    * Connect to database and read data
@@ -35,4 +46,8 @@ function showArticlesAndRunTest() {
       }
   }
   replaceText('articles', 'articles: \n' + JSON.stringify(articles, null, 2));
+}
+
+function AddOne(x) {
+  return x + 1;
 }
