@@ -29,8 +29,7 @@ function showArticlesAndRunTest() {
   t2 = Date.now();
   const jsTime = t2 - t1;
 
-  const timeDiff = cppTime - jsTime;
-  replaceText('hello-message', `C++ test took ${cppTime}ms. JS test took ${jsTime}ms. C++ was ${Math.abs(timeDiff)}ms ${timeDiff >= 0 ? 'slower' : 'faster'}.`);
+  replaceText('hello-message', `C++ test took ${cppTime}ms. JS test took ${jsTime}ms.`);
 
   /**
    * Connect to database and read data
